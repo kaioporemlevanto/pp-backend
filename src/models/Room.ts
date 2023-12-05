@@ -1,6 +1,6 @@
-type Rooom = {
+type Room = {
     id: string;
     qtd_camas: number;
 };
 
-export default Rooom;
+export default Room;
