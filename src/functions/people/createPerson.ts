@@ -36,7 +36,7 @@ const createPerson = async (
     // A função retorna uma Promise, então deve usar AWAIT
     await database.create(nome, email, senha, empresa);
         
-    return created("message", "Pessoa criada com sucesso!");
+    return created("Pessoa criada com sucesso!", "message");
   };
   
   export const handler = Handler(createPerson);
