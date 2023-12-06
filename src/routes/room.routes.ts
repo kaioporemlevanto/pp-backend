@@ -15,4 +15,20 @@ export const roomRoutes = {
           },
         ],
     },
+    findRoomById: {
+      handler:
+        "src/functions/rooms/findRoom.handler",
+      events: [
+        {
+          http: {
+            path: "room/{id}",
+            method: "get",
+            cors: true,
+            // authorizer: {
+            //   name: "authenticate",
+            // },
+          },
+        },
+      ],
+  },
 }

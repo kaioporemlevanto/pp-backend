@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import IRoomsRepository from "../IRoomsRepositories";
 import { v4 as uuidv4 } from "uuid";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import Room from "src/models/Room";
 
 const firebaseConfig = {
@@ -36,9 +36,23 @@ class RoomsRepositories implements IRoomsRepository {
   findAll(): Promise<Room[]> {
     throw new Error("Method not implemented.");
   }
-  findById(id: string): Promise<Room> {
-    throw new Error("Method not implemented.");
-  }
+  // findById(id: string): Promise<Room> {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  async findById(id: string): Promise<Room> {
+    const document = await getDoc(doc(this.db, "quartos", id));
+    if (!document.exists()) {
+        return undefined;
+    }
+
+    const quarto = {
+        id: document.id,
+        qtd_camas: document.data().qtd_camas
+    }
+    return quarto;
+}
+
   update(room_id: string, qtd_camas: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
