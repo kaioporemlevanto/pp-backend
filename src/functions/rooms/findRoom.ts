@@ -4,7 +4,7 @@ import NotFoundError from "src/errors/NotFoundError";
 import RoomsRepositories from "src/repositories/implementations/RoomsRepositories";
 import { ok } from "src/utils/Returns";
 
-const findRoom= async (
+const findRoom = async (
     event: APIGatewayProxyEvent
   ): Promise<APIGatewayProxyResult> => {
   
