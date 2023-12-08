@@ -28,35 +28,35 @@ export const roomRoutes = {
         },
       },
     ],
-    deleteRoom: {
-      handler: "src/functions/rooms/deleteRoom.handler",
-      events: [
-        {
-          http: {
-            path: "room/{id}",
-            method: "delete",
-            cors: true,
-            // authorizer: {
-            //   name: "authenticate",
-            // },
-          },
+  },
+  deleteRoom: {
+    handler: "src/functions/rooms/deleteRoom.handler",
+    events: [
+      {
+        http: {
+          path: "room/{id}",
+          method: "delete",
+          cors: true,
+          // authorizer: {
+          //   name: "authenticate",
+          // },
         },
-      ],
-    },
-    insertPerson: {
-      handler: "src/functions/rooms/insertPerson.handler",
-      events: [
-        {
-          http: {
-            path: "room/{id}/{email}",
-            method: "put",
-            cors: true,
-            // authorizer: {
-            //   name: "authenticate",
-            // },
-          },
+      },
+    ],
+  },
+  insertPerson: {
+    handler: "src/functions/rooms/insertPerson.handler",
+    events: [
+      {
+        http: {
+          path: "room/{id}/{email}",
+          method: "put",
+          cors: true,
+          // authorizer: {
+          //   name: "authenticate",
+          // },
         },
-      ],
-    },
+      },
+    ],
   },
 };

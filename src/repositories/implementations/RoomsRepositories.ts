@@ -15,6 +15,7 @@ import {
 import Room from "src/models/Room";
 import Person from "src/models/Person";
 import PeopleRepositories from "./PeopleRepositories";
+import ClientError from "src/errors/ClientError";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAugWyvlqfPQi0Z2COhoLv7O6JH0unUQkk",
@@ -48,9 +49,6 @@ class RoomsRepositories implements IRoomsRepository {
   findAll(): Promise<Room[]> {
     throw new Error("Method not implemented.");
   }
-  // findById(id: string): Promise<Room> {
-  //   throw new Error("Method not implemented.");
-  // }
 
   async findById(id: string): Promise<Room> {
     const document = await getDoc(doc(this.db, "quartos", id));
@@ -68,16 +66,22 @@ class RoomsRepositories implements IRoomsRepository {
   update(room_id: string, qtd_camas: number): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  // insertPerson(room: Room, email: string): Promise<void> {
-  //   throw new Error("Method not implemented.");
-  // }
 
   async insertPerson(room: Room, email: string): Promise<void> {
     const database = new PeopleRepositories();
+    const databaseRoom = new RoomsRepositories();
+
     const person = await database.findByEmail(email);
     if (!person) {
         return undefined;
     }
+    if (person.com_quarto){
+      throw new ClientError("Pessoa já está em um quarto!");
+    }
+    if (room.qtd_camas <= (await databaseRoom.findPeopleByRoom(room.id)).length){
+      return undefined;
+    }
+
     await setDoc(doc(this.db, "pessoas", person.email), {
       name: person.name,
       senha: person.senha,
@@ -91,9 +95,6 @@ class RoomsRepositories implements IRoomsRepository {
   removePerson(room: Room, email: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
-  // delete(id: string): Promise<void> {
-  //   throw new Error("Method not implemented.");
-  // }
   async delete(id: string): Promise<void> {
     // const database = new RoomsRepositories();
     const peopleInDaRoom = await this.findPeopleByRoom(id);
