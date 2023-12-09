@@ -34,7 +34,7 @@ class RoomsRepositories implements IRoomsRepository {
     return undefined;
   }
 
-  async findAll(): Promise<Room[]> {
+   async findAll(): Promise<Room[]> {
     const roomCollection = collection(this.db, 'quartos');
     const roomSnapshot = await getDocs(roomCollection);
     const roomList = roomSnapshot.docs.map(doc =>
@@ -46,21 +46,19 @@ class RoomsRepositories implements IRoomsRepository {
 
     return roomList as unknown as Room[];
   }
-  // findById(id: string): Promise<Room> {
-  //   throw new Error("Method not implemented.");
-  // }
+
   async findById(id: string): Promise<Room> {
     const document = await getDoc(doc(this.db, "quartos", id));
     if (!document.exists()) {
-      return undefined;
+        return undefined;
     }
 
     const quarto = {
-      id: document.id,
-      qtd_camas: document.data().qtd_camas
+        id: document.id,
+        qtd_camas: document.data().qtd_camas
     }
     return quarto;
-  }
+}
 
   async update(room_id: string, qtd_camas: number): Promise<void> {
     await setDoc(doc(this.db, "quartos", room_id), {
@@ -69,9 +67,27 @@ class RoomsRepositories implements IRoomsRepository {
     return undefined;
   }
 
-  insertPerson(room: Room, email: string): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  // insertPerson(room: Room, email: string): Promise<void> {
+  //   throw new Error("Method not implemented.");
+  // }
+
+  async insertPerson(room: Room, email: string): Promise<void> {
+    const database = new PeopleRepositories();
+    const person = await database.findByEmail(email);
+    if (!person) {
+        return undefined;
+    }
+    await setDoc(doc(this.db, "pessoas", person.email), {
+      name: person.name,
+      senha: person.senha,
+      empresa: person.empresa,
+      com_quarto: true,
+      id_quarto: room.id
+  });
+    return undefined;
   }
+
   removePerson(room: Room, email: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
@@ -79,4 +95,5 @@ class RoomsRepositories implements IRoomsRepository {
     throw new Error("Method not implemented.");
   }
 }
+
 export default RoomsRepositories;
