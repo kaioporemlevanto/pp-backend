@@ -14,6 +14,22 @@ export const roomRoutes = {
       },
     ],
   },
+  findAll: {
+    handler:
+      "src/functions/rooms/listRooms.handler",
+    events: [
+      {
+        http: {
+          path: "room",
+          method: "get",
+          cors: true,
+          // authorizer: {
+          //   name: "authenticate",
+          // },
+        },
+      },
+    ],
+  },
   findRoomById: {
     handler: "src/functions/rooms/findRoom.handler",
     events: [
