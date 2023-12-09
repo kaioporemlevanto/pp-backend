@@ -1,6 +1,7 @@
 export const roomRoutes = {
   createRoom: {
-    handler: "src/functions/rooms/createRoom.handler",
+    handler:
+      "src/functions/rooms/createRoom.handler",
     events: [
       {
         http: {
@@ -14,6 +15,7 @@ export const roomRoutes = {
       },
     ],
   },
+
   findAll: {
     handler:
       "src/functions/rooms/listRooms.handler",
@@ -30,8 +32,26 @@ export const roomRoutes = {
       },
     ],
   },
+  updateRoom: {
+    handler:
+      "src/functions/rooms/updateRoom.handler",
+    events: [
+      {
+        http: {
+          path: "room",
+          method: "put",
+          cors: true,
+          // authorizer: {
+          //   name: "authenticate",
+          // },
+        },
+      },
+    ],
+  },
+
   findRoomById: {
-    handler: "src/functions/rooms/findRoom.handler",
+    handler:
+      "src/functions/rooms/findRoom.handler",
     events: [
       {
         http: {
@@ -45,34 +65,4 @@ export const roomRoutes = {
       },
     ],
   },
-  deleteRoom: {
-    handler: "src/functions/rooms/deleteRoom.handler",
-    events: [
-      {
-        http: {
-          path: "room/{id}",
-          method: "delete",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
-        },
-      },
-    ],
-  },
-  insertPerson: {
-    handler: "src/functions/rooms/insertPerson.handler",
-    events: [
-      {
-        http: {
-          path: "room/{id}/{email}",
-          method: "put",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
-        },
-      },
-    ],
-  },
-};
+}
