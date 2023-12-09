@@ -16,6 +16,7 @@ import Room from "src/models/Room";
 import Person from "src/models/Person";
 import PeopleRepositories from "./PeopleRepositories";
 import ClientError from "src/errors/ClientError";
+import { collection, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAugWyvlqfPQi0Z2COhoLv7O6JH0unUQkk",
@@ -46,8 +47,17 @@ class RoomsRepositories implements IRoomsRepository {
     return undefined;
   }
 
-  findAll(): Promise<Room[]> {
-    throw new Error("Method not implemented.");
+  async findAll(): Promise<Room[]> {
+    const roomCollection = collection(this.db, 'quartos');
+    const roomSnapshot = await getDocs(roomCollection);
+    const roomList = roomSnapshot.docs.map(doc =>
+    ({
+      id: doc.id,
+      qtd_camas: doc.data().qtd_camas
+    })
+    );
+
+    return roomList as unknown as Room[];
   }
 
   async findById(id: string): Promise<Room> {
