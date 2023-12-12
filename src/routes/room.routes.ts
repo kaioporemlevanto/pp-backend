@@ -71,7 +71,7 @@ removePerson: {
     events: [
       {
         http: {
-          path: "room",
+          path: "room/{email}",
           method: "put",
           cors: true,
           // authorizer: {
