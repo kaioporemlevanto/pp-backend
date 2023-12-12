@@ -21,7 +21,7 @@ const updatePassword = async (
 
   await database.updatePassword(person, nova_senha);
     
-  return ok("message", "Senha atualizada com sucesso!");
+  return ok("Senha atualizada com sucesso!", "message");
   };
   
   export const handler = Handler(updatePassword);
