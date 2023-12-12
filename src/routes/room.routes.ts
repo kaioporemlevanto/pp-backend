@@ -65,4 +65,20 @@ export const roomRoutes = {
       },
     ],
   },
+removePerson: {
+    handler:
+      "src/functions/rooms/removePerson.handler",
+    events: [
+      {
+        http: {
+          path: "room",
+          method: "put",
+          cors: true,
+          // authorizer: {
+          //   name: "authenticate",
+          // },
+        },
+      },
+    ],
+  },
 }
