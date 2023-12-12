@@ -7,15 +7,23 @@ export const roomRoutes = {
         http: {
           path: "room",
           method: "post",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
+          cors: true
         },
       },
     ],
   },
-
+  insertPerson: {
+    handler: "src/functions/rooms/insertPerson.handler",
+    events: [
+      {
+        http: {
+          path: "room/{id}/{email}",
+          method: "put",
+          cors: true
+        },
+      },
+    ],
+  },
   findAll: {
     handler:
       "src/functions/rooms/listRooms.handler",
@@ -24,10 +32,7 @@ export const roomRoutes = {
         http: {
           path: "room",
           method: "get",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
+          cors: true
         },
       },
     ],
@@ -40,10 +45,7 @@ export const roomRoutes = {
         http: {
           path: "room",
           method: "put",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
+          cors: true
         },
       },
     ],
@@ -57,10 +59,19 @@ export const roomRoutes = {
         http: {
           path: "room/{id}",
           method: "get",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
+          cors: true
+        },
+      },
+    ],
+  },
+  deleteRoom: {
+    handler: "src/functions/rooms/deleteRoom.handler",
+    events: [
+      {
+        http: {
+          path: "room/{id}",
+          method: "delete",
+          cors: true
         },
       },
     ],
@@ -73,10 +84,7 @@ removePerson: {
         http: {
           path: "room/{email}",
           method: "put",
-          cors: true,
-          // authorizer: {
-          //   name: "authenticate",
-          // },
+          cors: true
         },
       },
     ],
