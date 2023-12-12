@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { collection, getDocs } from "firebase/firestore";
 import Room from "src/models/Room";
+import PeopleRepositories from "./PeopleRepositories";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAugWyvlqfPQi0Z2COhoLv7O6JH0unUQkk",
