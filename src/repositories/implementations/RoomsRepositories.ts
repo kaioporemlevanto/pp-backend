@@ -89,8 +89,20 @@ class RoomsRepositories implements IRoomsRepository {
     return undefined;
   }
 
-  removePerson(room: Room, email: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async removePerson(room: Room, email: string): Promise<void> {
+    const database = new PeopleRepositories();
+    const person = await database.findByEmail(email);
+    if (!person) {
+      return undefined;
+    }
+    await setDoc(doc(this.db, "pessoas", person.email), {
+      name: person.name,
+      senha: person.senha,
+      empresa: person.empresa,
+      com_quarto: false,
+      id_quarto: null
+    });
+    return undefined;
   }
   delete(id: string): Promise<void> {
     throw new Error("Method not implemented.");
